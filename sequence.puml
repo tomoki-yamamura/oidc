@@ -1,0 +1,14 @@
+Browser -> Go: /login
+Go -> Go: Save state, nonce to session
+Go -> Browser: 302 redirect to Google
+
+Browser -> Google: User login
+Google -> Browser: /callback?code=...&state=...
+
+Browser -> Go: /callback?code=...&state=...
+Go -> Go: Verify state
+Go -> Google: Exchange code for tokens
+Google -> Go: {access_token, id_token}
+Go -> Go: Verify id_token + nonce
+Go -> Go: Create app session
+Go -> Browser: Redirect to /
